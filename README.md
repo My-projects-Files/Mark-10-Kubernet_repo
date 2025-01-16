@@ -41,8 +41,16 @@ kops edit cluster myfirstcluster.k8s.local
 ## Step 12: Build the cluster
 
 kops update cluster demok8scluster.k8s.local --yes --state=s3://kops-abhi-storage
+
 This will take a few minutes to create............
 
 After a few mins, run the below command to verify the cluster installation.
 
 kops validate cluster demok8scluster.k8s.local
+
+
+## kubectl cheat sheet 
+
+https://kubernetes.io/docs/reference/kubectl/quick-reference/
+
+
