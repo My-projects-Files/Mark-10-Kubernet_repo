@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: django-3
-        image: app_3
+        image: kamalsai33/pyth-1:latest
         ports:
         - containerPort: 8000
