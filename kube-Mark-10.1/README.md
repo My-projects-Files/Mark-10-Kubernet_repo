@@ -28,8 +28,8 @@ with nodeport configured, we can access the app inside the pods using ips of svc
 
 ## I have used ingress for the industry level load balancer setup
 
-check ingress.yml
+Check ingress.yml
 
-name of svc need to be added to the file.
+Name of svc need to be added to the file.
 
 ### Note: in case of local setup like minikube, we need to add domain to /etc/hosts entry since we dont have any domains that we can use like amazon.com..etc
