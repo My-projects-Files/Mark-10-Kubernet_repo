@@ -15,7 +15,30 @@ spec:
         app: python-app
     spec:
       containers:
-      - name: django-3
-        image: kamalsai33/pyth-1:latest
-        ports:
-        - containerPort: 8000
+        - name: django-3
+          image: kamalsai33/pyth-1:latest
+          #env :                            #To set as env value in pod
+        #   - name: DB
+        #     valueFrom:
+        #       configMapKeyRef:             #to set env variable of configmap
+        #         name: test-cm #name of the config map running
+        #         key: db-port  #value inside the cm.yml file
+        #       secretKeyRef:                 #to set env variable of secret
+        #         name: sec-cm #name of the secret
+        #         key: db-port #value inside the secret file
+          volumeMounts:
+        #   - name: db-connect        #to set cm as volume
+        #     mountPath: /tmp/db  
+            - name: secret-vol       #to set secret as volume
+              mountPath: /tmp/sec
+              readOnly: true  #for making readonly since its secret
+          ports:
+            - containerPort: 8000
+    # volumes:                            #to define configmap(cm) as the volume
+    #   - name: db-connect
+    #     configMap:
+    #       name: test-cm
+      volumes:                              #to define secret as the volume
+        - name: secret-vol
+          secret:
+            secretName: sec-cm
