@@ -1,0 +1,50 @@
+pipeline {
+	agent any
+
+	environment {
+		DOCKER_IMG = "puyt"
+		DOCKER_TAG = "latest"
+		DEPLOY_NAME = "node-app"
+	}
+
+	stages {
+		stage('checkout code') {
+			steps {
+				checkout scm
+			}
+		}
+		
+		stage('build docker') {
+			steps {
+			   script {
+				sh """
+				docker build -t ${DOCKER_IMG}:${DOCKER_TAG} .
+				"""
+				}
+			}
+		}
+		stage('deploy to kubernet') {
+			steps {
+				script {
+				   sh """
+				      kubectl apply -f deployment.yml -f service.yml
+				      """
+				   sh """
+				      kubectl rollout status deployment/${DEPLOY_NAME}
+				      """
+				}
+			}
+		}
+	}
+
+	post {
+		success {
+			echo 'pipeline complete'
+		}
+		failure {
+			echo 'pipeline failed'
+		}
+	}
+}
+
+
