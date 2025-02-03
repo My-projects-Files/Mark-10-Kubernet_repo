@@ -1,5 +1,6 @@
 # Mark-10
 This is for the Kubernet practice
+# Poject-1
 
 ## Kubernetes Installation Using KOPS on EC2
 Create an EC2 instance or use your personal laptop.
@@ -62,4 +63,7 @@ kops validate cluster demok8scluster.k8s.local
 ~~~
 https://kubernetes.io/docs/reference/kubectl/quick-reference/
 ~~~
+
+# Project-2
+## Automated CI/CD Pipeline for Kubernetes with jenkins
 
