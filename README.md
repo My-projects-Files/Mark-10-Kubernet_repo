@@ -66,4 +66,13 @@ https://kubernetes.io/docs/reference/kubectl/quick-reference/
 
 # Project-2
 ## Automated CI/CD Pipeline for Kubernetes with jenkins
-
+To manually deploy this app
+we have a notejs webapp and the dependencised of it inside the package.json file. we can to run the docker file to create an image
+~~~
+docker build -t puyt:latest .
+~~~
+then
+we can deploy the image in the kubernet using the deployments.
+~~~
+kubectl run -d --name=python_app -p 3000:3000 deployment.yml
+~~~
