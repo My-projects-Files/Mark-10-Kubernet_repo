@@ -76,3 +76,6 @@ we can deploy the image in the kubernet using the deployments.
 ~~~
 kubectl run -d --name=python_app -p 3000:3000 deployment.yml
 ~~~
+
+we can also automate the process using the jenkins CI/CD Pipelines
+Run the jenkins pipeline from git repo 
