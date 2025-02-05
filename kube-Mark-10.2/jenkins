@@ -5,6 +5,8 @@ pipeline {
 		DOCKER_IMG = "puyt"
 		DOCKER_TAG = "latest"
 		DEPLOY_NAME = "node-app"
+		KUBE_DEPLOY = "kube-Mark-10.2/deployment.yml"
+		KUBE_SERV = "kube-Mark-10.2/service.yml"
 	}
 
 	stages {
@@ -28,10 +30,10 @@ pipeline {
 				script {
 				  sh """
                        			echo "Current Directory Contents:"
-                       			ls -alh
+                       			ls -al
                     		      """
 				   sh """
-				      kubectl apply -f deployment.yml -f service.yml
+				      kubectl apply -f ${KUBE_DEPLOY} -f {KUBE_SERV}
 				      """
 				   sh """
 				      kubectl rollout status deployment/${DEPLOY_NAME}
