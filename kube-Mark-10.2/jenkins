@@ -26,6 +26,10 @@ pipeline {
 		stage('deploy to kubernet') {
 			steps {
 				script {
+				  sh """
+                       			echo "Current Directory Contents:"
+                       			ls -alh
+                    		      """
 				   sh """
 				      kubectl apply -f deployment.yml -f service.yml
 				      """
