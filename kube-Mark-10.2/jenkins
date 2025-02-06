@@ -31,9 +31,8 @@ pipeline {
 				  sh """
                        			echo "Current Directory Contents:"
                        			ls -al
-		                    	# Start Minikube and set kubectl context
-                		        minikube start
-                        		kubectl config use-context minikube
+		                    	# Start Minikube and set kubectl status
+                		        minikube status
                         		kubectl get nodes
                     		      """
 				   sh """
