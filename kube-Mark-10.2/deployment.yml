@@ -16,4 +16,4 @@ spec:
         - name: node-app
           image: puyt:latest
           ports:
-            -containerPort: 3000
+            - containerPort: 3000
