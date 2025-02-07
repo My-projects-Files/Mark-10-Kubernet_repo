@@ -31,9 +31,10 @@ pipeline {
 				  sh """
                        			echo "Current Directory Contents:"
                        			ls -al
+					minikube status
                     		      """
 				   sh """
-				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV} --insecure-skip-tls-verify=true
+				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}
 				      kubectl rollout status deployment/${DEPLOY_NAME}
 				      """
 				}
