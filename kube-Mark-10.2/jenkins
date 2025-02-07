@@ -25,13 +25,6 @@ pipeline {
 				}
 			}
 		}
-		stage('set kubectl context') {
-           		 steps {
-                		script {
-                    		sh 'kubectl config use-context minikube'
-                		}
-            		}
-        	}
 		stage('deploy to kubernet') {
 			steps {
 				script {
@@ -40,7 +33,7 @@ pipeline {
                        			ls -al
                     		      """
 				   sh """
-				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV} --validate=false
+				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}
 				      kubectl rollout status deployment/${DEPLOY_NAME}
 				      """
 				}
