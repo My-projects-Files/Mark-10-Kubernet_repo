@@ -33,7 +33,7 @@ pipeline {
                        			ls -al
                     		      """
 				   sh """
-				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}
+				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV} --validate=false
 				      kubectl rollout status deployment/${DEPLOY_NAME}
 				      """
 				}
