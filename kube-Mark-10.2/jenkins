@@ -20,8 +20,6 @@ pipeline {
 			steps {
 			   script {
 				sh """
-				   minikube status
-				   minikube ssh 
 				   docker pull kamalsai33/puyt:latest
 				   """
 				}
