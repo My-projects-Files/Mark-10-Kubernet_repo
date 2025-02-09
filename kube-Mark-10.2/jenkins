@@ -18,9 +18,11 @@ pipeline {
 		}
 		stage('pull docker') {
            		 steps {
-                		script {
-                    			docker.image('docker:19.03').inside {
-                       			 sh 'docker run hello-world'
+				script {
+                		 // Use the docker:dind image for Docker-in-Docker (DinD)
+                    		docker.image('docker:19.03-dind').inside('--privileged') {
+                        	// The --privileged flag is needed to allow Docker to run inside the container
+                        		sh 'docker run hello-world'
                         		sh 'docker -D pull kamalsai33/puyt:latest'
                    			 }
                 		}
