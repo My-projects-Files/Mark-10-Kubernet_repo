@@ -16,10 +16,12 @@ pipeline {
 			}
 		}
 		
-		stage('build docker') {
+		stage('pull docker') {
 			steps {
 			   script {
 				sh """
+				   minikube status
+				   minikube ssh 
 				   docker pull kamalsai33/puyt:latest
 				   """
 				}
