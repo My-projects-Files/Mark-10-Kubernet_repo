@@ -16,10 +16,12 @@ pipeline {
 			}
 		}
 		
-		stage('build docker') {
+		stage('pull docker') {
 			steps {
 			   script {
 				sh """
+				   minikube status
+				   minikube ssh 
 				   docker pull kamalsai33/puyt:latest
 				   """
 				}
@@ -31,10 +33,6 @@ pipeline {
 				  sh """
                        			echo "Current Directory Contents:"
                        			ls -al
-		                    	# Start Minikube and set kubectl context
-                		        minikube start
-                        		kubectl config use-context minikube
-                        		kubectl get nodes
                     		      """
 				   sh """
 				      kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}
