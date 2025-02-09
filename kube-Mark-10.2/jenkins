@@ -1,7 +1,6 @@
 pipeline {
-	agent{
-            	label 'kuba'  // Ensure this matches your Jenkins node label if you are using Kubernetes
-	}
+	agent any
+
 	environment {
 		DOCKER_IMG = "puyt"
 		DOCKER_TAG = "latest"
@@ -19,10 +18,7 @@ pipeline {
 		stage('pull docker') {
            		 steps {
 				script {
-                		 // Use the docker:dind image for Docker-in-Docker (DinD)
-                    		docker.image('docker:19.03-dind').inside('--privileged') {
-                        	// The --privileged flag is needed to allow Docker to run inside the container
-                        		sh 'docker run hello-world'
+                		    	sh 'docker ps'
                         		sh 'docker -D pull kamalsai33/puyt:latest'
                    			 }
                 		}
