@@ -1,9 +1,6 @@
 pipeline {
 	agent{
-	 	docker {
-            		image 'docker:19.03'  // Image with Docker pre-installed
-            		label 'kuba'  // Ensure this matches your Jenkins node label if you are using Kubernetes
-        	}
+            	label 'kuba'  // Ensure this matches your Jenkins node label if you are using Kubernetes
 	}
 	environment {
 		DOCKER_IMG = "puyt"
@@ -20,17 +17,15 @@ pipeline {
 			}
 		}
 		stage('pull docker') {
-			steps {
-			   script {
-				sh """
-				   pwd
-				   docker run hello-world
-				   docker version
-				   docker -D pull kamalsai33/puyt:latest
-				   """
-				}
-			}
-		}
+           		 steps {
+                		script {
+                    			docker.image('docker:19.03').inside {
+                       			 sh 'docker run hello-world'
+                        		sh 'docker -D pull kamalsai33/puyt:latest'
+                   			 }
+                		}
+           		 }
+        	}
 		stage('deploy to kubernet') {
 			steps {
 				script {
