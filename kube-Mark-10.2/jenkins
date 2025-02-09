@@ -2,7 +2,7 @@ pipeline {
 	agent{
 	 	docker {
             		image 'docker:19.03'  // Image with Docker pre-installed
-            		label 'cuba'  // Ensure this matches your Jenkins node label if you are using Kubernetes
+            		label 'kuba'  // Ensure this matches your Jenkins node label if you are using Kubernetes
         	}
 	}
 	environment {
