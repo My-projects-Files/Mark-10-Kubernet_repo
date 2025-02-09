@@ -19,7 +19,8 @@ pipeline {
 			steps {
 			   script {
 				sh """
-				  pwd
+				   pwd
+				   docker version
 				   docker -D pull kamalsai33/puyt:latest
 				   """
 				}
