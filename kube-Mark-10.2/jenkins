@@ -1,52 +1,49 @@
 pipeline {
-	agent any
+    agent any
 
-	environment {
-		DOCKER_IMG = "puyt"
-		DOCKER_TAG = "latest"
-		DEPLOY_NAME = "node-app"
-		KUBE_DEPLOY = "kube-Mark-10.2/deployment.yml"
-		KUBE_SERV = "kube-Mark-10.2/service.yml"
-	}
+    environment {
+        DOCKER_IMG = "puyt"
+        DOCKER_TAG = "latest"
+        DEPLOY_NAME = "node-app"
+        KUBE_DEPLOY = "kube-Mark-10.2/deployment.yml"
+        KUBE_SERV = "kube-Mark-10.2/service.yml"
+    }
 
-	stages {
-		stage('checkout code') {
-			steps {
-				checkout scm
-			}
-		}
-		stage('pull docker') {
-           		 steps {
-				script {
-                		    	sh 'docker ps'
-                        		sh 'docker -D pull kamalsai33/puyt:latest'
-                   			 }
-                		}
-           		 }
-        	}
-		stage('deploy to kubernet') {
-			steps {
-				script {
-				  sh """
-              			     echo "Current Directory Contents:"
-              			     ls -la
-              			     kubectl get svc
-				     kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}
-				     kubectl rollout status deployment/${DEPLOY_NAME}
-				     """
-				}
-			}
-		}
-	}
+    stages {
+        stage('checkout code') {
+            steps {
+                checkout scm
+            }
+        }
 
-	post {
-		success {
-			echo 'pipeline complete'
-		}
-		failure {
-			echo 'pipeline failed'
-		}
-	}
+        stage('pull docker') {
+            steps {
+                script {
+                    sh 'docker ps'  // This line is likely fine, no issue here.
+                    sh 'docker -D pull kamalsai33/puyt:latest'  // This line also seems fine.
+                }
+            }
+        }
+
+        stage('deploy to kubernet') {  // This stage may be problematic, specifically with its structure.
+            steps {
+                script {
+                    sh 'echo "Current Directory Contents:"'
+                    sh 'ls -la'
+                    sh 'kubectl get svc'
+                    sh 'kubectl apply -f ${KUBE_DEPLOY} -f ${KUBE_SERV}'
+                    sh 'kubectl rollout status deployment/${DEPLOY_NAME}'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'pipeline complete'
+        }
+        failure {
+            echo 'pipeline failed'
+        }
+    }
 }
-
-
