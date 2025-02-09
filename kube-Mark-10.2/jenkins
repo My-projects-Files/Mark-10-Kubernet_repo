@@ -20,6 +20,7 @@ pipeline {
 			   script {
 				sh """
 				   pwd
+				   docker run -v /var/run/docker.sock:/var/run/docker.sock ...
 				   docker version
 				   docker -D pull kamalsai33/puyt:latest
 				   """
