@@ -15,23 +15,6 @@ pipeline {
 				checkout scm
 			}
 		}
-		stage('Set Docker Env') {
-            		steps {
-                		script {
-                    		// Re-evaluate Docker environment to ensure we're interacting with the correct Docker daemon
-                    		sh 'eval $(minikube -p minikube docker-env)' // Replace this with your environment setup
-               			 }
-           		 }
-       		 }
-		stage('pull docker') {
-			steps {
-			   script {
-				sh """
-				   docker pull kamalsai33/puyt:latest
-				   """
-				}
-			}
-		}
 		stage('deploy to kubernet') {
 			steps {
 				script {
