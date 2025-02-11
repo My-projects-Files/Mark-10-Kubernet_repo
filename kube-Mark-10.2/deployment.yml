@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: node-app
-          image: kamalsai33/puyt:latest
+          image: kamalsai33/puyt:v2
           ports:
             - containerPort: 3000
