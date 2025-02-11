@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMG = "puyt"
-        DOCKER_TAG = "latest"
+        DOCKER_IMG = "kamalsai33/puyt"
+        DOCKER_TAG = "v2"
         DEPLOY_NAME = "node-app"
         KUBE_DEPLOY = "kube-Mark-10.2/deployment.yml"
         KUBE_SERV = "kube-Mark-10.2/service.yml"
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker ps'  // This line is likely fine, no issue here.
-                    sh 'docker -D pull kamalsai33/puyt:latest'  // This line also seems fine.
+                    sh 'docker -D pull ${DOCKER_IMG}:${DOCKER_TAG}'  // This line also seems fine.
                 }
             }
         }
