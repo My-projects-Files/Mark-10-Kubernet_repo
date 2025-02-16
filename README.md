@@ -107,6 +107,31 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o=jsonpath='{.data.pas
 ~~~
 Look for the password field and copy it. Then login to the ArgoCD UI at https://localhost:8080 using admin as the username and the copied password.
 
-4. Create a GitHub Repository for Your Application
-Create a Git repository on GitHub (or GitLab) where you will store your Kubernetes manifests for your application.
+Create a GitHub Repository for Your Application, Kubernetes manifests for your application.So ArgoCD can track it
+
+
+### Create a new Application in ArgoCD: You can create an application manually through the ArgoCD UI, or use the CLI.
+
+To create it via CLI:
+~~~
+argocd app create my-app \
+  --repo https://github.com/your-username/my-app-repo.git \
+  --path k8s \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default
+~~~
+Replace your-username and my-app-repo with actual repository details.
+
+Sync the application: Once the application is created, you can sync it to apply the configuration:
+~~~
+argocd app sync my-app
+~~~
+Alternatively, from the ArgoCD UI, you can click on your app and press "Sync" to deploy the changes to your Kubernetes cluster.
+
+We can check the app inside the cluster 
+~~~
+kubectl get deployments
+kubectl get svc
+~~~
+
 
