@@ -79,3 +79,6 @@ kubectl run -d --name=python_app -p 3000:3000 deployment.yml
 
 we can also automate the process using the jenkins CI/CD Pipelines
 Run the jenkins pipeline from git repo 
+
+## Lauch an ArgoCD inside the minikube cluster
+I have deployed the argocd namespace inside the running minikube cluster and opened the 8080 port for access it through the web UI
