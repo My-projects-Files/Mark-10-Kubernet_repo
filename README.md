@@ -134,4 +134,13 @@ kubectl get deployments
 kubectl get svc
 ~~~
 
+### Clean Up Resources
+Once you're done testing, you can delete the resources created by ArgoCD to avoid leaving unnecessary resources running:
+~~~
+argocd app delete my-app
+~~~
+You can also uninstall ArgoCD from your Kubernetes cluster:
+~~~
+kubectl delete namespace argocd
+~~~
 
