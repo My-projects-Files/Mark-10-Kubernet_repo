@@ -1,6 +1,6 @@
 # Mark-10
 This is for the Kubernet practice
-# Poject-1
+# Project-1
 
 ## Kubernetes Installation Using KOPS on EC2
 Create an EC2 instance or use your personal laptop.
