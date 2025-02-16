@@ -80,5 +80,33 @@ kubectl run -d --name=python_app -p 3000:3000 deployment.yml
 we can also automate the process using the jenkins CI/CD Pipelines
 Run the jenkins pipeline from git repo 
 
+
 ## Lauch an ArgoCD inside the minikube cluster
 I have deployed the argocd namespace inside the running minikube cluster and opened the 8080 port for access it through the web UI
+### Install ArgoCD in the Kubernetes Cluster
+You can install ArgoCD in your Kubernetes cluster using kubectl.
+
+Install ArgoCD: First, apply the ArgoCD installation manifests:
+~~~
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+~~~
+Expose ArgoCD API Server: You need to expose the ArgoCD API server so you can access it in your browser:
+~~~
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+~~~
+Now, you can access the ArgoCD UI at https://localhost:8080.
+
+### Login to ArgoCD
+The default username is admin. You can find the password using the following command:
+~~~
+kubectl get pods -n argocd
+kubectl describe secret argocd-initial-admin-secret -n argocd #if its not encripted
+(or)
+kubectl get secret argocd-initial-admin-secret -n argocd -o=jsonpath='{.data.password}' | base64 --decode #if its encripted
+~~~
+Look for the password field and copy it. Then login to the ArgoCD UI at https://localhost:8080 using admin as the username and the copied password.
+
+4. Create a GitHub Repository for Your Application
+Create a Git repository on GitHub (or GitLab) where you will store your Kubernetes manifests for your application.
+
