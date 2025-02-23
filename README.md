@@ -1,8 +1,10 @@
 # Mark-10
 This is for the Kubernet practice
+
 # Project-1
 
-## Kubernetes Installation Using KOPS on EC2
+### Kubernetes Installation Using KOPS on EC2
+
 Create an EC2 instance or use your personal laptop.
 Dependencies required
 
@@ -144,3 +146,13 @@ You can also uninstall ArgoCD from your Kubernetes cluster:
 kubectl delete namespace argocd
 ~~~
 
+
+
+# Operators for kubernet controller tools (ArgoCD)
+
+we can use operators to install and manage controller for k8s tools like argocd.
+
+Check the webside for operator supported contollers
+~~~
+https://operatorhub.io/
+~~~
