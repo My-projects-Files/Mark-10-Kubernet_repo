@@ -6,7 +6,7 @@ metadata:
     app: spring-app
 spec:
   replicas: 2
-  selectar:
+  selector:
     matchLabels:
       app: spring-app
   template:
