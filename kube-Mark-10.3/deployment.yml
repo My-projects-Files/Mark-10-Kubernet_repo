@@ -6,7 +6,7 @@ metadata:
     app: spring-app
 spec:
   replicas: 2
-  selectar:
+  selector:
     matchLabels:
       app: spring-app
   template:
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: kamalsai33/ultimate-cicd:replaceImageTag
+          image: kamalsai33/ultimate-cicd:v1
           ports:
             - containerPort: 9090
