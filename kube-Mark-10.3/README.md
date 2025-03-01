@@ -30,4 +30,9 @@ Now we can deploy the argocd in the cluster with basic configuration and with no
 kubectl apply -f argocd-base.yml
 ~~~
 
-once deployed we can access the argocd application and access it in web and configure it to get the data from github and deploy it in kubernet cluster and watch the state
+once deployed we can access the argocd application and access it in web and configure it to get the data from github and deploy it in kubernet cluster and watch the state.
+
+To login to the argocd we need can provide user as admin and the password can be found in secrets file. we can get the password in argocd-cluster secret file.
+~~~
+echo <password from file> |base64 -d
+~~~
