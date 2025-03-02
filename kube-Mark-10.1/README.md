@@ -1,9 +1,9 @@
 # Deploying a django application using minikube cluster
 
 To apply the file 
-
+~~~
 kubectl apply -f <file_name> 
-
+~~~
 ## I have used deployments to create pods with auto healing
 
 check deployment.yml
