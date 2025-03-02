@@ -156,3 +156,24 @@ Check the webside for operator supported contollers
 ~~~
 https://operatorhub.io/
 ~~~
+
+
+# Ingress in kubernet
+we can assign multiple services and access them using host base or path based access.
+ingress needs ingress controller along with ingress.yml to work properly.
+The most common Ingress controller is the NGINX Ingress Controller. You can install it with the following command:
+
+Install NGINX Ingress Controller via Helm (if using Helm):
+~~~
+helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+~~~
+
+Install NGINX Ingress Controller via kubectl (without Helm):
+~~~
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/stat
+~~~
+You can find the Ingress Controller deployment by checking for deployments in the namespace where it's typically installed. For example, to find the Ingress controller in the ingress-nginx namespace:
+~~~
+kubectl get deployments -n ingress-nginx
+~~~
+This will show you if there’s an Ingress controller deployment, and you should see a deployment like nginx-ingress-controller or something similar.
