@@ -177,3 +177,8 @@ You can find the Ingress Controller deployment by checking for deployments in th
 kubectl get deployments -n ingress-nginx
 ~~~
 This will show you if there’s an Ingress controller deployment, and you should see a deployment like nginx-ingress-controller or something similar.
+## ingress controller for minikube
+we can install ingress in minikube with pre-existing configurations.
+~~~
+minikube addons enable ingress
+~~~
