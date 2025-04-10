@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: kamalsai33/ultimate-cicd:v1
+          image: kamalsai33/ultimate-cicd:replaceImageTag
           ports:
             - containerPort: 9090
