@@ -182,3 +182,27 @@ we can install ingress in minikube with pre-existing configurations.
 ~~~
 minikube addons enable ingress
 ~~~
+# Kubernetes questions and Scenarios
+- **Scenarios-1**:Pod CrashLoopBackOff(A pod keeps restarting with CrashLoopBackOff)
+Debug steps
+~~~
+#get the pod details
+kubectl get pods -n <namespace>
+
+#To get the logs of the crashed pods
+kubectl logs <pod-name> -n <namespace> --previous
+
+#describe the pods
+kubectl describe pod <pod-name> -n <namespace>
+~~~
+Resolution
+~~~
+#To open it interactively
+kubectl run debug-pod --rm -it --image=<your-image> -- bash
+
+#To check out rollout history and to rollback
+kubectl rollout history deployment/<deployment-name> -n <namespace>
+kubectl rollout undo deployment/<deployment-name> -n <namespace>
+~~~
+
+- 
