@@ -1,9 +1,14 @@
 # Mark-10
 This is for the Kubernet practice
 ## simple way to generate a deployment file in k8s.
-for generating a nginx deployment file
+For generating a nginx deployment file
 ~~~
 kubctl create deployment my-nginx --image=nginx:latest --port=80 --dry-run=client -o yaml > deployment.yml
+~~~
+
+To generate a service for the above deployment 
+~~~
+kubectl expose deployment my-nginx --port=80 --target-port=8080 --type=ClusterIP --dry-run=client -o yaml > service.yml
 ~~~
 
 # Project-1
