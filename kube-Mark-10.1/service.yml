@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: python-serv
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: python-app 
       #app name at template
@@ -11,4 +11,4 @@ spec:
     - port: 80
       targetPort: 8000 
         #application port
-      nodePort: 30007
+      #nodePort: 30007
