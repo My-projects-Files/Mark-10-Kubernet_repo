@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-host
 spec:
+  ingressClassName: nginx
   rules:
   - host: "sai.dev.com"
     http:
