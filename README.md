@@ -1,5 +1,8 @@
 # Mark-10
 This is for the Kubernet practice
+## Headless and statefulset
+- **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
+- **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
 ## simple way to generate a deployment file in k8s.
 For generating a nginx deployment file
 ~~~
