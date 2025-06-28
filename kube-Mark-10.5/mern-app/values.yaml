@@ -1,0 +1,36 @@
+services:
+  frontend:
+    replicaCount: 2
+    image:
+      repository: yourdockerhub/frontend
+      tag: latest
+      pullPolicy: Always
+    containerPort: 5173
+    servicePort: 80
+
+  backend:
+    replicaCount: 2
+    image:
+      repository: yourdockerhub/backend
+      tag: latest
+      pullPolicy: Always
+    containerPort: 5050
+    servicePort: 5050
+    env:
+      - name: MONGO_URI
+        value: "mongodb://{{ .Release.Name }}-mongodb-headless:27017/mydb"
+
+mongodb:
+  replicaCount: 1
+  image: mongo:latest
+  pvc:
+    size: 5Gi
+  service:
+    port: 27017
+  # Headless service to enable stable network IDs for StatefulSet pods
+  headlessServiceName: "{{ .Release.Name }}-mongodb-headless"
+
+ingress:
+  enabled: true
+  host: mern.prd
+
