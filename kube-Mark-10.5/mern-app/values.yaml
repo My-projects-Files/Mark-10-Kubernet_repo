@@ -2,8 +2,8 @@ services:
   frontend:
     replicaCount: 2
     image:
-      repository: yourdockerhub/frontend
-      tag: latest
+      repository: kamalsai33/mern_app-mern-frontend-mern-app
+      tag: ${BUILD_NUMBER}
       pullPolicy: Always
     containerPort: 5173
     servicePort: 80
@@ -11,8 +11,8 @@ services:
   backend:
     replicaCount: 2
     image:
-      repository: yourdockerhub/backend
-      tag: latest
+      repository: kamalsai33/mern_app-mern-backend-mern-app
+      tag: ${BUILD_NUMBER}
       pullPolicy: Always
     containerPort: 5050
     servicePort: 5050
