@@ -2,7 +2,7 @@ services:
   frontend:
     replicaCount: 2
     image:
-      repository: yourdockerhub/frontend
+      repository: kamalsai33/mern_app-mern-frontend-mern-app
       tag: latest
       pullPolicy: Always
     containerPort: 5173
@@ -11,7 +11,7 @@ services:
   backend:
     replicaCount: 2
     image:
-      repository: yourdockerhub/backend
+      repository: kamalsai33/mern_app-mern-backend-mern-app
       tag: latest
       pullPolicy: Always
     containerPort: 5050
