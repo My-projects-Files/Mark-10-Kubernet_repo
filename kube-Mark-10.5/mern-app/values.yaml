@@ -3,7 +3,7 @@ services:
     replicaCount: 2
     image:
       repository: kamalsai33/mern_app-mern-frontend-mern-app
-      tag: ${BUILD_NUMBER}
+      tag: 8
       pullPolicy: Always
     containerPort: 5173
     servicePort: 80
@@ -12,7 +12,7 @@ services:
     replicaCount: 2
     image:
       repository: kamalsai33/mern_app-mern-backend-mern-app
-      tag: ${BUILD_NUMBER}
+      tag: 8
       pullPolicy: Always
     containerPort: 5050
     servicePort: 5050
