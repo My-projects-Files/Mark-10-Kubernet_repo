@@ -13,9 +13,10 @@ To generate a service for the above deployment
 ~~~
 kubectl expose deployment my-nginx --port=80 --target-port=8080 --type=ClusterIP --dry-run=client -o yaml > service.yml
 ~~~
-
-### dry-run  -> it validates and prints the output locally without contacting the API server
-
+~~~
+#dry-run=client  -> it validates and prints the output locally without contacting the API server.
+#dry-run=server -> it will send request to the Kubernetes API server, run full validation, run admission webhooks, but don’t save or implement themanything.
+~~~
 # Project-1
 
 ### Kubernetes Installation Using KOPS on EC2
