@@ -3,7 +3,7 @@ This is for the Kubernet practice
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
-## simple way to generate a deployment file in k8s.
+## Simple way to generate a deployment file in k8s.
 For generating a nginx deployment file
 ~~~
 kubctl create deployment my-nginx --image=nginx:latest --port=80 --dry-run=client -o yaml > deployment.yml
@@ -13,6 +13,9 @@ To generate a service for the above deployment
 ~~~
 kubectl expose deployment my-nginx --port=80 --target-port=8080 --type=ClusterIP --dry-run=client -o yaml > service.yml
 ~~~
+
+- **dry-run=client** : it validates and prints the output locally without contacting the API server.
+- **dry-run=server** : it will send request to the Kubernetes API server, run full validation, run admission webhooks, but don’t save or implement themanything.
 
 # Project-1
 
