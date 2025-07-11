@@ -1,5 +1,13 @@
 # Mark-10
 This is for the Kubernet practice
+# Architecture
+inside a minikube cluster we can find the kubernets architectual config file in the below path.
+~~~
+minikube ssh
+sudo ls -l /etc/kubernetes/manifests
+~~~
+This path include config files like etcd, kube-apiserver, kube-controller-manager, kube-scheduler.
+
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
