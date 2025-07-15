@@ -8,6 +8,14 @@ sudo ls -l /etc/kubernetes/manifests
 ~~~
 This path include config files like etcd, kube-apiserver, kube-controller-manager, kube-scheduler.
 
+## Pause Container in a Pod
+
+The pause container is a minimal container that serves as the “infrastructure anchor” for a Pod. it's the first container started when Kubernetes creates a Pod, and all the other containers in the Pod share its Linux namespaces — especially the network namespace.
+
+When a Pod is started, it will be given an namespace(network, IPC, PID, etc.), But they need a running process to keep them alive. if not then the namespace will be exited. 
+
+So the Pod lauched a Pause container which just sits there and does nothing except keep the network and namespace alive. It uses very little CPU or memory. so multiple container can be deployed in the pod who can communicate throuch same ip address. They can connect each other VIA localhost. if an application container restarts the pause container will hold the namespace so the pod ip remains same.
+
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
