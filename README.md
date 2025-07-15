@@ -16,6 +16,16 @@ When a Pod is started, it will be given an namespace(network, IPC, PID, etc.), B
 
 So the Pod lauched a Pause container which just sits there and does nothing except keep the network and namespace alive. It uses very little CPU or memory. so multiple container can be deployed in the pod who can communicate throuch same ip address. They can connect each other VIA localhost. if an application container restarts the pause container will hold the namespace so the pod ip remains same.
 
+**NOTE**: Pause container lanches before the init container. below is the flow.
+
+      Pause Container --> creates a namespace
+          |
+          V      
+      init Container  --> Run before app and should be successful
+          |
+          V
+      App Container --> application is launched here
+      
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
