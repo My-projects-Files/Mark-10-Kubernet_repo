@@ -8,6 +8,17 @@ sudo ls -l /etc/kubernetes/manifests
 ~~~
 This path include config files like etcd, kube-apiserver, kube-controller-manager, kube-scheduler.
 
+## Pod Disruption Budget (PDB)
+
+Pod disruption is the process, when pod got stopped or evicted. Types of disruptions are 
+
+- **Voluntary** : These are intentional and usually planned by humans or controllers. something like "kubectl delete pod"
+- **Involuntary** : These are unplanned and caused by failures or system-level issues. something like "Node crash" (or) "OOM" (or) "Disk failure" etc.
+
+Pod Disruption Budget is a policy that limits, how many pods that can be voluntarily disrupted at a time. it help maintain high availability during planned operations like "Rolling updates" (or) "kubectl drain" etc. 
+
+- **Note**: PDB only applies to Voluntary disruption only and cant be applied for causes like pod crashes or anything
+
 ## Pause Container in a Pod
 
 The pause container is a minimal container that serves as the “infrastructure anchor” for a Pod. it's the first container started when Kubernetes creates a Pod, and all the other containers in the Pod share its Linux namespaces — especially the network namespace.
@@ -16,6 +27,16 @@ When a Pod is started, it will be given an namespace(network, IPC, PID, etc.), B
 
 So the Pod lauched a Pause container which just sits there and does nothing except keep the network and namespace alive. It uses very little CPU or memory. so multiple container can be deployed in the pod who can communicate throuch same ip address. They can connect each other VIA localhost. if an application container restarts the pause container will hold the namespace so the pod ip remains same.
 
+**NOTE**: Pause container lanches before the init container. below is the flow.
+
+      Pause Container --> creates a namespace
+          |
+          V      
+      init Container  --> Run before app and should be successful
+          |
+          V
+      App Container --> application is launched here
+      
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
