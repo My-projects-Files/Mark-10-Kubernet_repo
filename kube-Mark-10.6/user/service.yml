@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: my-user
+  name: my-user
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5001
+  selector:
+    app: my-user
+  type: ClusterIP
+status:

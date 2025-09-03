@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-user
+  name: my-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-user
+  template:
+    metadata:
+      labels:
+        app: my-user
+    spec:
+      containers:
+      - image: kamalsai33/user-service:v1
+        name: user-service
+        ports:
+        - containerPort: 5001
