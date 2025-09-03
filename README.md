@@ -1,9 +1,60 @@
 # Mark-10
 This is for the Kubernet practice
+
+# Architecture
+inside a minikube cluster we can find the kubernets architectual config file in the below path.
+~~~
+minikube ssh
+sudo ls -l /etc/kubernetes/manifests
+~~~
+This path include config files like etcd, kube-apiserver, kube-controller-manager, kube-scheduler.
+
+## Controllers
+
+In Kubernetes, controllers are core components that watch the cluster state and automatically make changes to move the actual state toward the desired state defined in your YAML configurations.
+
+So in short it matched the actual state with the desired state.
+
+
+## Pod Disruption Budget (PDB)
+
+Pod disruption is the process, when pod got stopped or evicted. Types of disruptions are 
+
+- **Voluntary** : These are intentional and usually planned by humans or controllers. something like "kubectl delete pod"
+- **Involuntary** : These are unplanned and caused by failures or system-level issues. something like "Node crash" (or) "OOM" (or) "Disk failure" etc.
+
+Pod Disruption Budget is a policy that limits, how many pods that can be voluntarily disrupted at a time. it help maintain high availability during planned operations like "Rolling updates" (or) "kubectl drain" etc. 
+
+- **Note**: PDB only applies to Voluntary disruption only and cant be applied for causes like pod crashes or anything
+
+
+## Pause Container in a Pod
+
+The pause container is a minimal container that serves as the “infrastructure anchor” for a Pod. it's the first container started when Kubernetes creates a Pod, and all the other containers in the Pod share its Linux namespaces — especially the network namespace.
+
+When a Pod is started, it will be given an namespace(network, IPC, PID, etc.), But they need a running process to keep them alive. if not then the namespace will be exited. 
+
+So the Pod lauched a Pause container which just sits there and does nothing except keep the network and namespace alive. It uses very little CPU or memory. so multiple container can be deployed in the pod who can communicate throuch same ip address. They can connect each other VIA localhost. if an application container restarts the pause container will hold the namespace so the pod ip remains same.
+
+**NOTE**: Pause container lanches before the init container. below is the flow.
+
+      Pause Container --> creates a namespace
+          |
+          V      
+      init Container  --> Run before app and should be successful
+          |
+          V
+      App Container --> application is launched here
+      
+
+
 ## Headless and statefulset
 - **Headless** : A Headless Service is a special kind of Kubernetes Service that does not have a Cluster IP assigned. Instead of load-balancing traffic through a single virtual IP, it lets you directly reach the individual pods.
 - **Statefulset** : it manages deployments and scaling of stateful applications, ensuring each pod maintains a unique and persistent identity, stable networking, and ordered deployment and scaling
-## simple way to generate a deployment file in k8s.
+
+
+
+## Simple way to generate a deployment file in k8s.
 For generating a nginx deployment file
 ~~~
 kubctl create deployment my-nginx --image=nginx:latest --port=80 --dry-run=client -o yaml > deployment.yml
@@ -13,6 +64,11 @@ To generate a service for the above deployment
 ~~~
 kubectl expose deployment my-nginx --port=80 --target-port=8080 --type=ClusterIP --dry-run=client -o yaml > service.yml
 ~~~
+
+- **dry-run=client** : it validates and prints the output locally without contacting the API server.
+- **dry-run=server** : it will send request to the Kubernetes API server, run full validation, run admission webhooks, but don’t save or implement themanything.
+
+
 
 # Project-1
 
