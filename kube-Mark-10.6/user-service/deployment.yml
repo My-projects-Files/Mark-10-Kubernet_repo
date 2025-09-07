@@ -15,7 +15,7 @@ spec:
         app: my-user
     spec:
       containers:
-      - image: 'kamalsai33/user-service:27' 
+      - image: 'kamalsai33/user-service:28' 
         name: user-service
         ports:
         - containerPort: 5001
