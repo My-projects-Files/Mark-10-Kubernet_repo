@@ -15,6 +15,21 @@ In Kubernetes, controllers are core components that watch the cluster state and 
 
 So in short it matched the actual state with the desired state.
 
+## Kustomize
+
+Kustomize is a tool built into kubectl (and used by ArgoCD) that helps you manage Kubernetes YAML files without modifying the original files.
+
+we can Think of it like a way to customize our Kubernetes manifests by layering or combining them.
+
+### Use case for Kustomize
+
+we compose multiple YAML files together. we can patch or override some values without changing original files. It helps manage different environments (dev, staging, prod) by applying different configs. It also avoids duplicating YAML files.
+
+we create a file called kustomization.yaml in a folder. Inside, our list the resources (YAML files or other folders) you want to deploy.
+
+            resources:
+              - deployment.yaml
+              - service.yaml
 
 ## Pod Disruption Budget (PDB)
 

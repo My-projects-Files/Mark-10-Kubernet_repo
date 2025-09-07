@@ -1,0 +1,4 @@
+resources:
+  - user-service/
+  - order-service/
+  - ingress/
