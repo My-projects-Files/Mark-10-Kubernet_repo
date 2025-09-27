@@ -8,6 +8,21 @@ minikube ssh
 sudo ls -l /etc/kubernetes/manifests
 ~~~
 This path include config files like etcd, kube-apiserver, kube-controller-manager, kube-scheduler.
+## CNI
+
+CNI stands for Container Network Interface. It's a standard for configuring networking in Linux containers—used by Kubernetes to manage pod networking. Kubernetes doesn’t come with built-in networking logic it just defiens how it should look like and leaves implementation to CNI.
+
+A CNI plugin is a small program that is run whenever a pod is created or deleted.
+
+When a pod is created:
+
+The CNI plugin assigns an IP address to the pod.
+
+It creates virtual interfaces and sets up routing rules.
+
+It ensures the pod can talk to other pods, services, and the internet.
+
+NOTE: AWS EKS cluster comes with VPC CNI plugin by default.
 
 ## Controllers
 
