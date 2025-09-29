@@ -15,7 +15,7 @@ spec:
         app: my-order
     spec:
       containers:
-      - image: kamalsai33/order-service:v1
+      - image: 'kamalsai33/order-service:32' 
         name: order-service
         ports:
         - containerPort: 5002
