@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/saikamal33/Mark-10-Kubernet_repo/tree/main/kube-Mark-10.7
-    targetRevision: HEAD
-    path: tenant-app
+    repoURL: https://github.com/saikamal33/Mark-10-Kubernet_repo
+    targetRevision: main
+    path: kube-Mark-10.7/tenant-app
     helm:
       valueFiles:
         - values.yaml
