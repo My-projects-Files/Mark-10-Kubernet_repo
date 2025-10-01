@@ -27,11 +27,11 @@ ingresses:
     host: tenant-a.local
     cert: self-signed
     tlsSecret: tls-secret
-    serviceName: nginx
+    serviceName: my-nginx
     servicePort: 80
 
 networkPolicy:
-  enable: true
+  enable: false
 
 nodeSelector: {}
 
