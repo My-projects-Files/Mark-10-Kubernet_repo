@@ -26,7 +26,10 @@ NOTE: AWS EKS cluster comes with VPC CNI plugin by default.
 
 ## Cert-manager
 
-**TLS Certs** : It is a digital ID that proves a server is legit and enables encryption.
+**TLS Certs** : It is a digital ID that proves a server is legit and enables encryption. The Purpose of the TLS Certs has two main purposes.
+
+1. **Encryption** — It encrypts traffic between client and server (e.g. browser and backend), preventing snooping.
+2. **Authentication / Trust** — It proves that the server is who it says it is (e.g., google.com is really Google).
 
 It is a kubernetes controller that helps manage TLS certs for:
 
@@ -57,6 +60,8 @@ For self signed cluster issuer
               name: self-signed
             spec:
               selfSigned: {}
+
+This will generate self signed certs, and only provides a encription and not the Authentication / Trust factor of the certs.
 
 ## Controllers
 
