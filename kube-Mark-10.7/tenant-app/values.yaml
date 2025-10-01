@@ -31,7 +31,7 @@ ingresses:
     servicePort: 80
 
 networkPolicy:
-  enable: false
+  enable: true
 
 nodeSelector: {}
 
