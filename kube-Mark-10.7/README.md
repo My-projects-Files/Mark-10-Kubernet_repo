@@ -41,4 +41,8 @@
 
 		helm install tenant-a ./tenant-app -n tenant-a --create-namespace \
   		--set networkPolicy.enabled=false
-5) need to integrate argocd along with helm for quick deployment 
+5) we just need to run the belwo command so the argocd will take the whole code from github and deploy it 
+
+		kubectl apply -f manifests/tenant-a-app.yaml
+
+Note: make sure that you have a ingress controller in place.
