@@ -1,0 +1,20 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "creationTimestamp": "2025-09-29T08:14:41Z",
+        "labels": {
+            "kubernetes.io/metadata.name": "tenant-a"
+        },
+        "name": "tenant-a",
+        "resourceVersion": "26902",
+        "uid": "d2be15a6-4932-4cf6-a6fb-27d2aa624df3"
+    },
+    "spec": {
+        "finalizers": [
+        ]
+    },
+    "status": {
+        "phase": "Active"
+    }
+}
