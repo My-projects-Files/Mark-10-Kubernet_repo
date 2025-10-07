@@ -1,7 +1,7 @@
 
 
 
-## vault the postgresql
+## Vault the postgresql
 
 we can use the below command to vault the postgresql.
 
@@ -23,3 +23,42 @@ This is the actual PostgreSQL connection string Vault will use to log in to the 
 **myapp**: Database name
 **sslmode=disable**: Disables SSL (for local/dev use)
 
+
+## Setup
+
+As the app should not directly connect to the vault so we have setup a sidecar container in the deployment and mounted a voulume where the credentials will be stored by vault and retrived by application.
+
+### vault-agent-config.hcl
+It’s a required configuration file for the Vault Agent inside the pod, we will define this in configmap so it can be injected into the vault agent(sidecar) inside the pod.
+
+            exit_after_auth = false
+            pid_file = "/home/vault/pidfile"
+            
+            auto_auth {
+              method "kubernetes" {
+                mount_path = "auth/kubernetes"
+                config = {
+                  role = "db-app"
+                }
+              }
+            
+              sink "file" {
+                config = {
+                  path = "/home/vault/.vault-token"
+                }
+              }
+            }
+            
+            template {
+              destination = "/vault/secrets/db-creds.txt"
+              contents = <<EOT
+              {{ with secret "database/creds/readonly-role" }}
+              username={{ .Data.username }}
+              password={{ .Data.password }}
+              {{ end }}
+              EOT
+            }
+
+- This explains the agent how to authenticate (e.g. using Kubernetes, AWS, etc.).
+- Where to write the vault token (sink)
+- Whether to render secrets into files (template blocks)
