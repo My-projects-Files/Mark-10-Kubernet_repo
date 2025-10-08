@@ -40,3 +40,4 @@ vault write auth/kubernetes/role/db-app \
 	bound_service_access_namespaces="default" \
 	policies="db-app" \
 	ttl="1h"
+
