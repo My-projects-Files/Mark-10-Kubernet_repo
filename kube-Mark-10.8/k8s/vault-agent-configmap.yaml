@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-agent-config
+data:
+  vault-agent-config.hcl: |
+    exit_after_auth = false
+    pid_file = "/home/vault/pidfile"
+
+    auto_auth {
+      method "kubernetes" {
+        mount_path = "auth/kubernetes"
+        config = {
+          role = "db-app"
+        }
+      }
+
+      sink "file" {
+        config = {
+          path = "/home/vault/.vault-token"
+        }
+      }
+    }
+
+    template {
+      destination = "/vault/secrets/db-creds.txt"
+      contents = <<EOT
+      {{ with secret "database/creds/readonly-role" }}
+      username={{ .Data.username }}
+      password={{ .Data.password }}
+      {{ end }}
+    EOT
+  }

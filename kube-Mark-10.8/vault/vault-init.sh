@@ -37,5 +37,6 @@ vault write auth/kubernetes/config \
 #Create role for app
 vault write auth/kubernetes/role/db-app \
 	bound_service_account_names="vault-auth" \
-	bound_servvice_access_namespaces="default" \
+	bound_service_access_namespaces="default" \
+	policies="db-app" \
 	ttl="1h"

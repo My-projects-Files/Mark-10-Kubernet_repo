@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-app
+spec:
+  replicas: 1
+    selector:
+    matchLabels:
+      app: db-app
+  template:
+    metadata:
+      labels:
+        app: db-app
+    spec:
+      serviceAccountName: vault-auth
+      volumes:                                       #mounting a configmap that contains the vault agent
+        - name: config
+          configMap:
+            name: vault-agent-config
+        - name: shared-data
+          emptyDir: {}
+      containers:
+        - name: app                                 # container for application
+          image: python:3.9
+          command: ["python3"]
+          args: ["-u", "/app/main.py"]
+          volumeMounts:                             #mounting the shared volume 
+            - name: shared-data
+              mountPath: /vault/secrets
+          env:                                      #setting the cread inside the volume as env variable
+            - name: DB_CREDENTIALS_FILE
+              value: /vault/secrets/db-creds.txt
+        - name: vault-agent                         #Container used as sidecar for vault
+          image: hashicorp/vault:1.14
+          command: ["vault", "agent", "-config=/etc/vault/vault-agent-config.hcl"]
+          volumeMounts:                             #mounting shared volumes and placing the cred in them
+            - name: config
+              mountPath: /etc/vault
+            - name: shared-data
+              mountPath: /vault/secrets
