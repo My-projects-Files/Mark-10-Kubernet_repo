@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: postgres-vault-role
+  namespace: default
+rules:
+  - apiGroups: [""] # core API group of k8s which is empty string
+    resources: ["secrets", "configmaps"] #specifies the resources this roles controles
+    verbs: ["get", "list", "watch"]   #action allowd in the resource
