@@ -23,7 +23,11 @@ This is the actual PostgreSQL connection string Vault will use to log in to the 
 **myapp**: Database name
 **sslmode=disable**: Disables SSL (for local/dev use)
 
+- To store the vaule inside the vault we can use this 
 
+        vault kv put secret/postgres/init \
+          POSTGRES_USER=<vaultuser> \
+          POSTGRES_PASSWORD=<vaultpass>
 ## Setup
 
 As the app should not directly connect to the vault so we have setup a sidecar container in the deployment and mounted a voulume where the credentials will be stored by vault and retrived by application.
