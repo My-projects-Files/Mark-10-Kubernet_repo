@@ -1,7 +1,11 @@
 
 
 
-## Vault the postgresql
+# Vault integrating in postgresql
+- To start the vault in dev mode
+
+       vault status         # to check vault status
+       vault server -dev        #to run vault as dev service
 
 we can use the below command to vault the postgresql.
 
@@ -28,6 +32,13 @@ This is the actual PostgreSQL connection string Vault will use to log in to the 
         vault kv put secret/postgres/init \
           POSTGRES_USER=<vaultuser> \
           POSTGRES_PASSWORD=<vaultpass>
+
+### HCL(HashiCorp Configuration Language)
+We use the policy files with .hcl extention to specify the permissions. There are of two types.
+1) **Vault Agent .hcl file (Client-side)** ---> used by agent and Tells the Agent how to authenticate (auto_auth), where to write the token (sink), and optionally how to render secrets (template).
+
+2) **Vault Policy .hcl file (Server-side)** ---> Vault server access policy, we create it using "vault policy write".It defines what a token is allowed to do once it's been issued. it Grants read/write/list/etc. permissions to secrets/data paths.
+
 ## Setup
 
 As the app should not directly connect to the vault so we have setup a sidecar container in the deployment and mounted a voulume where the credentials will be stored by vault and retrived by application.
