@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: vault-agent-postgres
 data:
-  vault-agent.hcl: |
+  vault-agent-postgres.hcl: |
     exit_after_auth = false
     pid_file = "/home/vault/pidfile"
 
@@ -11,7 +11,7 @@ data:
       method "kubernetes" {
         mount_path = "auth/kubernetes"
         config = {
-          role = "postgres-init"
+          role = "postgres-init-policy"
         }
       }
 
