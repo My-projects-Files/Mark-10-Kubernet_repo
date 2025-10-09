@@ -2,6 +2,9 @@
 
 
 # Vault integrating in postgresql
+- To start the vault in dev mode
+
+       vault server -dev
 
 we can use the below command to vault the postgresql.
 
