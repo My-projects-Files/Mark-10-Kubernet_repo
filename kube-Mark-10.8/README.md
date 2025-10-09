@@ -4,7 +4,8 @@
 # Vault integrating in postgresql
 - To start the vault in dev mode
 
-       vault server -dev
+       vault status         # to check vault status
+       vault server -dev        #to run vault as dev service
 
 we can use the below command to vault the postgresql.
 
