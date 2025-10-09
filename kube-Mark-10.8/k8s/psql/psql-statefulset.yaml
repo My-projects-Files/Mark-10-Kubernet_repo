@@ -23,7 +23,7 @@ spec:
     containers:
       - name: vault-agent                         #Container used as sidecar for vault
         image: hashicorp/vault:1.14
-        command: ["vault", "agent", "-config=/etc/vault/vault-agent.hcl"]
+        command: ["vault", "agent", "-config=/etc/vault/vault-agent-postgres.hcl"]
         volumeMounts:                             #mounting shared volumes and placing the cred in them
           - name: vault-agent-config
             mountPath: /etc/vault

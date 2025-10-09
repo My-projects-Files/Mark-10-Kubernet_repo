@@ -38,6 +38,20 @@ vault write auth/kubernetes/config \
 vault write auth/kubernetes/role/db-app \
 	bound_service_account_names="vault-auth" \
 	bound_service_access_namespaces="default" \
-	policies="db-app" \
+	policies="db-app-policy" \
 	ttl="1h"
 
+# Create a role for service account
+vault write auth/kubernetes/roles/postgres-init \
+	bound_service_account_names="postgres" \
+	bound_service_account_namespace="default" \
+	policies="postgres-init-policy" \
+	ttl="1h"
+
+# Applying the policy
+
+for file in policy/*.hcl; do
+	policy_name=$(basename "$file" .hcl)    #it extracts the file name with out the 
+	echo "Uploading policy: $policy_name"
+	vault policy write "$policy_name" "$file"
+done

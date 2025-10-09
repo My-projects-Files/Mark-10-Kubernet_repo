@@ -32,7 +32,7 @@ spec:
               value: /vault/secrets/db-creds.txt
         - name: vault-agent                         #Container used as sidecar for vault
           image: hashicorp/vault:1.14
-          command: ["vault", "agent", "-config=/etc/vault/vault-agent-config.hcl"]
+          command: ["vault", "agent", "-config=/etc/vault/vault-agent-app.hcl"]
           volumeMounts:                             #mounting shared volumes and placing the cred in them
             - name: config
               mountPath: /etc/vault
