@@ -5,15 +5,15 @@ metadata:
 spec:
   serviceName: "Postgres"
   replicas: 1
-  selectior: 
+  selector: 
     matchLabels:
       app: postgres
   template:
     metadata:
       labels:
         app: postgres
-  spec:
-    serviceAccountName: postgres
+    spec:
+      serviceAccountName: postgres
     volumes:
       - name: vault-agent-config
         configMap:
