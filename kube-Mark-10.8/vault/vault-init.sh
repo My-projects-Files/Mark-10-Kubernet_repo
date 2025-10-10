@@ -2,7 +2,6 @@
 
 #set this before running
 export VAULT_ADDR='http://127.0.0.1:8200'
-export VAULT_TOKEN='root'
 
 
 # Enable postgrSQL secrets engine
@@ -12,7 +11,7 @@ vault secrets enable database
 # Configure vault with access to postgresql
 
 vault write database/config/my-postgres-db \
-	plugin_name=postgresql-databasse-plugin \
+	plugin_name=postgresql-database-plugin \
 	allowed_roles="readonly-role" \
 	connection_url="postgresql://vaultuser:vaultpass@postgres:5432/myapp?sslmode=disable"
 
@@ -30,9 +29,9 @@ vault auth enable kubernetes
 #configure kubernetes auth
 
 vault write auth/kubernetes/config \
-	token_reviewer_jwt="<service_account_token>" \
+	token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
 	kubernetes_host="https://kubernetes.default.svc" \
-	kubernetes_ca_cert=@/path/to/ca.crt
+	kubernetes_ca_cert=@cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 #Create role for app
 vault write auth/kubernetes/role/db-app \
