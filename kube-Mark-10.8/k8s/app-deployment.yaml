@@ -23,7 +23,7 @@ spec:
         - name: app                                 # container for application
           image: python:3.9
           command: ["python3"]
-          args: ["-u", "../app/main.py"]
+          args: ["-u", "./app/main.py"]
           volumeMounts:                             #mounting the shared volume 
             - name: shared-data
               mountPath: /vault/secrets
