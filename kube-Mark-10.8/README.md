@@ -77,3 +77,11 @@ It’s a required configuration file for the Vault Agent inside the pod, we will
 - This explains the agent how to authenticate (e.g. using Kubernetes, AWS, etc.).
 - Where to write the vault token (sink)
 - Whether to render secrets into files (template blocks)
+
+adding the policy for vault
+
+       cat <<EOF > /home/vault/read.policy.hcl
+       path "secret/data/my-app/*" {
+         capabilities = ["read"]
+       }
+       EOF

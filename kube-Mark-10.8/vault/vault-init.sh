@@ -37,15 +37,17 @@ vault write auth/kubernetes/config \
 vault write auth/kubernetes/role/db-app \
 	bound_service_account_names="vault-auth" \
 	bound_service_account_namespaces="default" \
+	audience="vault" \
 	policies="db-app-policy" \
 	ttl="1h"
 
 # Create a role for service account
-vault write auth/kubernetes/roles/postgres-init \
-	bound_service_account_names="postgres" \
-	bound_service_account_namespace="default" \
-	policies="postgres-init-policy" \
-	ttl="1h"
+vault write auth/kubernetes/role/postgres-init \
+  bound_service_account_names="postgres" \
+  bound_service_account_namespaces="default" \
+  audience="vault" \
+  policies="postgres-init-policy" \
+  ttl="1h"
 
 # Applying the policy
 
