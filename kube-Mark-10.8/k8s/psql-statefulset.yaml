@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: postgres
 spec:
-  serviceName: "Postgres"
+  serviceName: "postgres"
   replicas: 1
   selector: 
     matchLabels:
@@ -14,12 +14,12 @@ spec:
         app: postgres
     spec:
       serviceAccountName: postgres
-    volumes:
-      - name: vault-agent-config
-        configMap:
-          name: vault-agent-postgres
-      - name: vault-secret
-        emptyDir: {}
+      volumes:
+        - name: vault-agent-config
+          configMap:
+            name: vault-agent-postgres
+        - name: vault-secret
+          emptyDir: {}
     containers:
       - name: vault-agent                         #Container used as sidecar for vault
         image: hashicorp/vault:1.14
