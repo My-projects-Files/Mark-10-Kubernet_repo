@@ -25,8 +25,8 @@ data:
     template {
       destination = "/vault/secrets/db-creds.txt"
       contents = |
-      {{ with secret "database/creds/readonly-role" }}
-      username={{ .Data.username }}
-      password={{ .Data.password }}
-      {{ end }}
-  }
+          {{ with secret "database/creds/readonly-role" }}
+          username={{ .Data.username }}
+          password={{ .Data.password }}
+          {{ end }}
+    }

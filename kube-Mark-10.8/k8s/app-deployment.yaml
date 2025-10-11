@@ -21,9 +21,7 @@ spec:
           emptyDir: {}
       containers:
         - name: app                                 # container for application
-          image: python:3.9
-          command: ["python3"]
-          args: ["-u", "../app/main.py"]
+          image: kamalsai33/vault-db:latest
           volumeMounts:                             #mounting the shared volume 
             - name: shared-data
               mountPath: /vault/secrets
