@@ -31,7 +31,7 @@ spec:
               mountPath: /vault/secrets
   
         - name: postgres
-          image: postgres:13
+          image: kamalsai33/my-postgres:v1
           ports:
             - containerPort: 5432
           volumeMounts:
