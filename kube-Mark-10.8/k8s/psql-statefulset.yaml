@@ -20,30 +20,30 @@ spec:
             name: vault-agent-postgres
         - name: vault-secret
           emptyDir: {}
-    containers:
-      - name: vault-agent                         #Container used as sidecar for vault
-        image: hashicorp/vault:1.14
-        command: ["vault", "agent", "-config=/etc/vault/vault-agent-postgres.hcl"]
-        volumeMounts:                             #mounting shared volumes and placing the cred in them
-          - name: vault-agent-config
-            mountPath: /etc/vault
-          - name: vault-secret
-            mountPath: /vault/secrets
-
-      - name: postgres
-        image: postgres:13
-        ports:
-          - containerPort: 5432
-        volumeMounts:
-          - name: postgres-storage
-            mountPath: /var/lib/postgresql/data
-          - name: vault-secret
-            mountPath: /vault/secrets
-        command: [ "bash", "-c"]   #uses bash run the following arg as script
-        args:                     # reads/export the vault file inside the db container
-          - |
-            export $(cat /vault/secrets/postgres.env | xargs)
-            exec docker-entrypoint.sh postgres   
+      containers:
+        - name: vault-agent                         #Container used as sidecar for vault
+          image: hashicorp/vault:1.14
+          command: ["vault", "agent", "-config=/etc/vault/vault-agent-postgres.hcl"]
+          volumeMounts:                             #mounting shared volumes and placing the cred in them
+            - name: vault-agent-config
+              mountPath: /etc/vault
+            - name: vault-secret
+              mountPath: /vault/secrets
+  
+        - name: postgres
+          image: postgres:13
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+            - name: vault-secret
+              mountPath: /vault/secrets
+          command: [ "bash", "-c"]   #uses bash run the following arg as script
+          args:                     # reads/export the vault file inside the db container
+            - |
+              export $(cat /vault/secrets/postgres.env | xargs)
+              exec docker-entrypoint.sh postgres   
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage
