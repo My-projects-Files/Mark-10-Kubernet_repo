@@ -15,7 +15,7 @@ data:
       method "kubernetes" {
         mount_path = "auth/kubernetes"
         config = {
-          role = "db-app-policy"
+          role = "db-app"
         }
       }
 
