@@ -24,9 +24,10 @@ data:
 
     template {
       destination = "/vault/secrets/db-creds.txt"
-      contents = |
+      contents = <<EOT
           {{ with secret "database/creds/readonly-role" }}
           username={{ .Data.username }}
           password={{ .Data.password }}
           {{ end }}
+          EOT
     }
