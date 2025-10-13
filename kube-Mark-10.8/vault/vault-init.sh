@@ -41,7 +41,7 @@ vault write auth/kubernetes/config \
 vault write auth/kubernetes/role/db-app \
 	bound_service_account_names="vault-auth" \
 	bound_service_account_namespaces="default" \
-	audience="vault" \
+	audience="https://kubernetes.default.svc.cluster.local" \			#since we are using the local setup, we need to match the aud for pod agent and side car
 	policies="db-app-policy" \
 	ttl="1h"
 
@@ -49,7 +49,7 @@ vault write auth/kubernetes/role/db-app \
 vault write auth/kubernetes/role/postgres-init \
   bound_service_account_names="postgres" \
   bound_service_account_namespaces="default" \
-  audience="vault" \
+  audience="https://kubernetes.default.svc.cluster.local" \				#since we are using the local setup, we need to match the aud for pod agent and side car
   policies="postgres-init-policy" \
   ttl="1h"
 
