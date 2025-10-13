@@ -5,9 +5,16 @@ export VAULT_ADDR='http://127.0.0.1:8200'
 
 
 # Enable postgrSQL secrets engine
-
 vault secrets enable database
+# Enable kubernetes auth
+vault auth enable kubernetes
 
+# Applying the policy
+for file in policy/*.hcl; do
+	policy_name=$(basename "$file" .hcl)    #it extracts the file name with out .hcl
+	echo "Uploading policy: $policy_name"
+	vault policy write "$policy_name" "$file"
+done
 # Configure vault with access to postgresql
 
 vault write database/config/my-postgres-db \
@@ -22,9 +29,6 @@ vault write database/roles/readonly-role \
 	creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
 	default_ttl="1h" \
 	max_ttl="24h"
-
-# Enable kubernetes auth
-vault auth enable kubernetes
 
 #configure kubernetes auth
 
@@ -49,10 +53,6 @@ vault write auth/kubernetes/role/postgres-init \
   policies="postgres-init-policy" \
   ttl="1h"
 
-# Applying the policy
 
-for file in policy/*.hcl; do
-	policy_name=$(basename "$file" .hcl)    #it extracts the file name with out the 
-	echo "Uploading policy: $policy_name"
-	vault policy write "$policy_name" "$file"
-done
+
+

@@ -4,6 +4,10 @@ metadata:
   name: vault-agent-config
 data:
   vault-agent-app.hcl: |
+    vault {
+      address = "http://vault.default.svc.cluster.local:8200"
+    }
+
     exit_after_auth = false
     pid_file = "/home/vault/pidfile"
 
@@ -11,7 +15,7 @@ data:
       method "kubernetes" {
         mount_path = "auth/kubernetes"
         config = {
-          role = "db-app-policy"
+          role = "db-app"
         }
       }
 
