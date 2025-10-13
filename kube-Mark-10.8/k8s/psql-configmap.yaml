@@ -29,8 +29,8 @@ data:
       destination = "/vault/secrets/postgres.env"
       contents = <<EOT
       {{ with secret "database/creds/postgres-init" }}
-      POSTGRES_USER={{ .Data.POSTGRES_USER }}
-      POSTGRES_PASSWORD={{ .Data.POSTGRES_PASSWORD }}
+      POSTGRES_USER={{ .Data.username }}
+      POSTGRES_PASSWORD={{ .Data.password }}
       {{ end}}
       EOT
     }
