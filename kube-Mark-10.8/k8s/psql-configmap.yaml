@@ -4,6 +4,9 @@ metadata:
   name: vault-agent-postgres
 data:
   vault-agent-postgres.hcl: |
+    vault {
+      address = "http://vault.default.svc.cluster.local:8200"
+    }
     exit_after_auth = false
     pid_file = "/home/vault/pidfile"
 
