@@ -28,7 +28,7 @@ data:
     template {
       destination = "/vault/secrets/postgres.env"
       contents = <<EOT
-      {{ with secret "database/creds/postgres-init" }}
+      {{ with secret "database/creds/readonly-role" }}
       POSTGRES_USER={{ .Data.username }}
       POSTGRES_PASSWORD={{ .Data.password }}
       {{ end}}
