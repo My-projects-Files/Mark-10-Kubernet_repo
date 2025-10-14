@@ -30,9 +30,9 @@ data:
       destination = "/vault/secrets/db-creds.txt"
       perms = 0644
       contents = <<EOT
-          {{ with secret "database/creds/readonly-role" }}
-          username={{ .Data.username }}
-          password={{ .Data.password }}
-          {{ end }}
-          EOT
+      {{ with secret "database/creds/readonly-role" }}
+      username={{ .Data.username }}
+      password={{ .Data.password }}
+      {{ end }}
+      EOT
     }
