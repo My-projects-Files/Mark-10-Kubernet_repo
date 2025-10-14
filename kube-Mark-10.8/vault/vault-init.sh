@@ -19,16 +19,24 @@ done
 
 vault write database/config/my-postgres-db \
 	plugin_name=postgresql-database-plugin \
-	allowed_roles="readonly-role" \
-	connection_url="postgresql://vaultuser:vaultpass@postgres:5432/myapp?sslmode=disable"
+	allowed_roles="readonly-role,db-init-role" \
+	connection_url="postgresql://vaultadmin:vaultpass@postgres:5432/myapp?sslmode=disable"    			#get the vault password from secrets with base64 encryption
 
-# Create a dynamic role
+# Create a dynamic role for the application
 
 vault write database/roles/readonly-role \
 	db_name=my-postgres-db \
 	creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
 	default_ttl="1h" \
 	max_ttl="24h"
+
+# Creat a dynamic role for db
+
+vault write database/roles/db-init-role \
+    db_name=my-postgres-db \
+    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}'; GRANT ALL PRIVILEGES ON DATABASE myapp TO \"{{name}}\";" \
+    default_ttl="10m" \
+    max_ttl="1h"
 
 #configure kubernetes auth
 
