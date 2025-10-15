@@ -20,7 +20,7 @@ done
 vault write database/config/my-postgres-db \
 	plugin_name=postgresql-database-plugin \
 	allowed_roles="readonly-role,db-init-role" \
-	connection_url="postgresql://vaultadmin:vaultpass@postgres:5432/myapp?sslmode=disable"    			#get the vault password from secrets with base64 encryption
+	connection_url="postgresql://vaultadmin:vaultpass@postgres-0.postgres.default.svc.cluster.local:5432/myapp?sslmode=disable"    			#get the vault password from secrets with base64 encryption
 
 # Create a dynamic role for the application
 
