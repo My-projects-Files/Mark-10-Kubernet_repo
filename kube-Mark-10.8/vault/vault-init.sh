@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #set this before running
-export VAULT_ADDR='http://127.0.0.1:8200'
+export VAULT_ADDR='http://vault.vault.svc.cluster.local:8200'
 
 
 # Enable postgrSQL secrets engine
