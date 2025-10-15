@@ -1,7 +1,7 @@
 
+# Kubernetes Application with PostgreSQL Database Secured by HashiCorp Vault for Dynamic Secrets Management (open for contribusions)
 
-
-# Vault integrating in postgresql
+## Vault integrating in postgresql
 - To start the vault in dev mode
 
        vault status         # to check vault status
@@ -85,3 +85,37 @@ adding the policy for vault
          capabilities = ["read"]
        }
        EOF
+
+## Prerequirement
+
+1) We need to have a minikube setup locally (this is optimised for minikube, open for contribusions for other clusters).
+
+          minikube start --driver=docker
+2) Recomended to use argocd which can reduce the deployment time of the applications
+
+          kubectl create namespace argocd
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+          # we can either forward the port or set it to nodeport mode to access the UI
+
+          kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d; echo # to get the admin password
+3) Once all the configurations are done, we can configure the vault in the cluster.
+
+          kubectl create namespace vault
+   
+              # make sure if helm is installed and Add the HashiCorp Helm repo
+          helm repo add hashicorp https://helm.releases.hashicorp.com
+          helm repo update
+
+              #Create a namespace for Vault
+          kubctl create namespace vault
+
+              #installs vault with persistant storage
+          helm install vault hashicorp/vault \
+                --namespace vault \
+                --set "server.dev.enabled=true" \                     #runs Vault in dev mode (for testing)
+                --set "server.extraEnvironmentVars.VAULT_DEV_ROOT_TOKEN_ID=root"       #sets root token to root
+       kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort"}}'  # to change the vault pod as nodeport
+
+4) now we can configure the vault 
+              
