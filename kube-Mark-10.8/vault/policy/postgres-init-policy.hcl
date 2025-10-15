@@ -1,3 +1,3 @@
-path "secret/data/postgres/db-init-role" {
+path "database/roles/db-init-role" {
 	capabilities = ["read"]
 }
