@@ -117,5 +117,8 @@ adding the policy for vault
                 --set "server.extraEnvironmentVars.VAULT_DEV_ROOT_TOKEN_ID=root"       #sets root token to root
        kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort"}}'  # to change the vault pod as nodeport
 
-4) now we can configure the vault 
+4) now we can configure the pod for the vault using 
+
+       kubectl exec -it vault-0 -n vault -- /bin/sh
+
               
