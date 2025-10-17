@@ -96,29 +96,52 @@ adding the policy for vault
           kubectl create namespace argocd
           kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-          # we can either forward the port or set it to nodeport mode to access the UI
+   - we can either forward the port or set it to nodeport mode to access the UI
 
           kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d; echo # to get the admin password
 3) Once all the configurations are done, we can configure the vault in the cluster.
 
           kubectl create namespace vault
    
-              # make sure if helm is installed and Add the HashiCorp Helm repo
+   - make sure if helm is installed and Add the HashiCorp Helm repo
+
           helm repo add hashicorp https://helm.releases.hashicorp.com
           helm repo update
 
-              #Create a namespace for Vault
-          kubctl create namespace vault
+   - Create a namespace for Vault
 
-              #installs vault with persistant storage
-          helm install vault hashicorp/vault \
-                --namespace vault \
-                --set "server.dev.enabled=true" \                     #runs Vault in dev mode (for testing)
-                --set "server.extraEnvironmentVars.VAULT_DEV_ROOT_TOKEN_ID=root"       #sets root token to root
-       kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort"}}'  # to change the vault pod as nodeport
+            kubectl create namespace vault
+
+   - installs vault with persistant storage
+
+                 helm install vault hashicorp/vault \
+                       --namespace vault \
+                       --set "server.dev.enabled=true" \                     #runs Vault in dev mode (for testing)
+                       --set "server.extraEnvironmentVars.VAULT_DEV_ROOT_TOKEN_ID=root"       #sets root token to root
+              kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort"}}'  # to change the vault pod as nodeport
 
 4) now we can configure the pod for the vault using 
 
        kubectl exec -it vault-0 -n vault -- /bin/sh
 
+   - we can copy the policy file under the vault folder and run the commands inside the vault-init.sh file for configuring the vault.
+
+5) we can verify the setup is working or not
+
+      - we can check the application sidecar container logs for any issues.
+
+                 kubectl logs pod/<app-pod-name> -c vault-agent
+
+      - we can check the db sidecar logs
+    
+                 kubectl logs postgres-0 -c vault-agent
+
+     - if no issues found above we can proceed with checking the app logs for dynamic db creds.
+     
+                 kubectl logs pod/<app-pod-name> -c app
+
+   - we can test if the creds working or not using a test pod by provide username and if it login then the creds are correct.
+
+            kubectl run -it --rm test-pod --image=postgres:13 -- psql -h postgres -U "<username-from-logs" -d myapp
+          
               
